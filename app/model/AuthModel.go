@@ -33,8 +33,8 @@ func (model AuthModel) Login(auth Auth) (bool, error, string) {
 	}
 
 	sign := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"name":            auth.Name,
-		"account_account": account.AccountNumber,
+		"name":           auth.Name,
+		"account_number": account.AccountNumber,
 	})
 
 	token, err := sign.SignedString([]byte("secret"))

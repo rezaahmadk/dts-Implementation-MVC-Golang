@@ -38,7 +38,9 @@ func (model AccountModel) GetAccountDetail(idAccount int) (bool, error, []Transa
 	var transaction []Transaction
 	var account Account
 
-	result := model.DB.Where("sender = ? OR recipient = ?", idAccount, idAccount).Find(&transaction)
+	result := model.DB.Model(&Transaction{}).Where("sender = ? OR recipient = ?", idAccount, idAccount).Find(&transaction)
+	fmt.Println(idAccount)
+	fmt.Println(transaction)
 	if result.Error != nil {
 		if result.Error == gorm.ErrRecordNotFound {
 			return false, errors.Errorf("Account not Found"), []Transaction{}, Account{}
